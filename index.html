@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saad Stores — Coming Soon</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: #1a1a2e;
+            --bg-card-hover: #1f1f35;
+            --accent: #6c63ff;
+            --accent-glow: rgba(108, 99, 255, 0.3);
+            --accent-light: #8b83ff;
+            --text-primary: #f0f0f5;
+            --text-secondary: #a0a0b8;
+            --text-muted: #6b6b80;
+            --danger: #ff4757;
+            --success: #2ed573;
+            --warning: #ffa502;
+            --border: rgba(255, 255, 255, 0.06);
+            --gradient-1: linear-gradient(135deg, #6c63ff, #e040fb);
+            --gradient-2: linear-gradient(135deg, #0a0a0f, #1a1a2e);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Animated Background */
+        .bg-grid {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-image:
+                radial-gradient(circle at 20% 50%, rgba(108, 99, 255, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(224, 64, 251, 0.04) 0%, transparent 50%),
+                radial-gradient(circle at 50% 80%, rgba(108, 99, 255, 0.03) 0%, transparent 50%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ── Navbar ── */
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 18px;
+            color: #fff;
+            box-shadow: 0 4px 15px var(--accent-glow);
+        }
+
+        .logo-text {
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-text span {
+            color: var(--accent-light);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        /* ── Hero / Countdown Section ── */
+        .hero {
+            text-align: center;
+            padding: 80px 0 60px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(108, 99, 255, 0.1);
+            border: 1px solid rgba(108, 99, 255, 0.25);
+            color: var(--accent-light);
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            padding: 6px 16px;
+            border-radius: 50px;
+            margin-bottom: 24px;
+        }
+
+        .badge .dot {
+            width: 6px;
+            height: 6px;
+            background: var(--accent-light);
+            border-radius: 50%;
+            animation: pulse-dot 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.8); }
+        }
+
+        .hero h1 {
+            font-size: clamp(36px, 5vw, 56px);
+            font-weight: 900;
+            line-height: 1.1;
+            letter-spacing: -1.5px;
+            margin-bottom: 16px;
+        }
+
+        .hero h1 .highlight {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            color: var(--text-secondary);
+            font-size: 17px;
+            max-width: 520px;
+            margin: 0 auto 50px;
+        }
+
+        /* ── Countdown ── */
+        .countdown-wrapper {
+            max-width: 640px;
+            margin: 0 auto 20px;
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .countdown-block {
+            position: relative;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px 20px 18px;
+            min-width: 120px;
+            text-align: center;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .countdown-block:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(108, 99, 255, 0.15);
+            border-color: rgba(108, 99, 255, 0.3);
+        }
+
+        .countdown-block::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--gradient-1);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .countdown-block:hover::before {
+            opacity: 1;
+        }
+
+        .countdown-number {
+            font-size: 48px;
+            font-weight: 900;
+            line-height: 1;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 6px;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .countdown-label {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+        }
+
+        .countdown-separator {
+            display: flex;
+            align-items: center;
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--accent);
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.2; }
+        }
+
+        /* Progress Bar */
+        .progress-section {
+            max-width: 640px;
+            margin: 30px auto 0;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .progress-info span {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        .progress-bar-bg {
+            width: 100%;
+            height: 6px;
+            background: var(--bg-card);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--gradient-1);
+            border-radius: 3px;
+            transition: width 1s linear;
+            box-shadow: 0 0 12px var(--accent-glow);
+        }
+
+        /* ── Coming Soon Section ── */
+        .coming-soon-section {
+            display: flex;
+            justify-content: center;
+            padding: 60px 0 80px;
+        }
+
+        .coming-soon-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 50px 40px;
+            max-width: 520px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .coming-soon-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient-1);
+        }
+
+        .coming-soon-icon {
+            font-size: 52px;
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .coming-soon-card h2 {
+            font-size: 26px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 14px;
+        }
+
+        .coming-soon-card p {
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.7;
+            margin-bottom: 28px;
+        }
+
+        .notify-form {
+            display: flex;
+            gap: 10px;
+        }
+
+        .notify-input {
+            flex: 1;
+            padding: 14px 18px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 14px;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .notify-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .notify-input:focus {
+            border-color: var(--accent);
+        }
+
+        .notify-btn {
+            padding: 14px 24px;
+            background: var(--gradient-1);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: opacity 0.3s, transform 0.15s;
+            white-space: nowrap;
+        }
+
+        .notify-btn:hover {
+            opacity: 0.9;
+            transform: scale(0.98);
+        }
+
+        .notify-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* ── Footer ── */
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        footer span {
+            color: var(--accent-light);
+            font-weight: 600;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 600px) {
+            .nav-links { display: none; }
+            .countdown-block { min-width: 72px; padding: 16px 12px 14px; }
+            .countdown-number { font-size: 32px; }
+            .countdown-separator { font-size: 24px; }
+            .hero { padding: 50px 0 30px; }
+            .hero h1 { font-size: 30px; }
+            .notify-form { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+
+<div class="container">
+
+    <!-- Navbar -->
+    <nav>
+        <a href="#" class="logo">
+            <div class="logo-icon">S</div>
+            <div class="logo-text">Saad <span>Stores</span></div>
+        </a>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Products</a></li>
+            <li><a href="#">Deals</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero + Countdown -->
+    <section class="hero">
+        <div class="badge"><span class="dot"></span> Coming Soon</div>
+        <h1>Saad Stores<br><span class="highlight">Launching Soon</span></h1>
+        <p>We're putting the finishing touches on an incredible shopping experience. Stay tuned — great things are on the way!</p>
+
+        <div class="countdown-wrapper">
+            <div class="countdown" id="countdown">
+                <div class="countdown-block">
+                    <div class="countdown-number" id="hours">05</div>
+                    <div class="countdown-label">Hours</div>
+                </div>
+                <div class="countdown-separator">:</div>
+                <div class="countdown-block">
+                    <div class="countdown-number" id="minutes">00</div>
+                    <div class="countdown-label">Minutes</div>
+                </div>
+                <div class="countdown-separator">:</div>
+                <div class="countdown-block">
+                    <div class="countdown-number" id="seconds">00</div>
+                    <div class="countdown-label">Seconds</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="progress-section">
+            <div class="progress-info">
+                <span>Launch Progress</span>
+                <span id="progress-text">100% Remaining</span>
+            </div>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="progress-bar" style="width: 100%;"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Coming Soon Section -->
+    <div class="coming-soon-section">
+        <div class="coming-soon-card">
+            <div class="coming-soon-icon">🚀</div>
+            <h2>Store Will Be Available Soon</h2>
+            <p>We're working hard to bring you the best shopping experience. Get ready for amazing products, unbeatable prices, and exclusive deals — all in one place.</p>
+            <div class="notify-form">
+                <input type="email" placeholder="Enter your email for early access" class="notify-input">
+                <button class="notify-btn">Notify Me</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        © 2026 <span>Saad Stores</span> — All rights reserved. Premium quality, unmatched prices.
+    </footer>
+
+</div>
+
+<script>
+    // 5-hour countdown (in seconds)
+    const TOTAL_SECONDS = 5 * 60 * 60;
+    let remaining = TOTAL_SECONDS;
+
+    const hoursEl = document.getElementById('hours');
+    const minutesEl = document.getElementById('minutes');
+    const secondsEl = document.getElementById('seconds');
+    const progressBar = document.getElementById('progress-bar');
+    const progressText = document.getElementById('progress-text');
+
+    function pad(n) {
+        return String(n).padStart(2, '0');
+    }
+
+    function updateCountdown() {
+        if (remaining <= 0) {
+            hoursEl.textContent = '00';
+            minutesEl.textContent = '00';
+            secondsEl.textContent = '00';
+            progressBar.style.width = '0%';
+            progressText.textContent = 'Launching Now!';
+            return;
+        }
+
+        remaining--;
+
+        const h = Math.floor(remaining / 3600);
+        const m = Math.floor((remaining % 3600) / 60);
+        const s = remaining % 60;
+
+        hoursEl.textContent = pad(h);
+        minutesEl.textContent = pad(m);
+        secondsEl.textContent = pad(s);
+
+        const pct = ((remaining / TOTAL_SECONDS) * 100).toFixed(1);
+        progressBar.style.width = pct + '%';
+        progressText.textContent = pct + '% Remaining';
+    }
+
+    // Initial display
+    updateCountdown();
+    // Start the interval (first tick after 1 second)
+    setInterval(updateCountdown, 1000);
+</script>
+
+</body>
+</html>
